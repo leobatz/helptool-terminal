@@ -1,4 +1,3 @@
-import chalk from "chalk";
-import { intro, outro } from '@clack/prompts';
+import mainMenu from "./menus/mainMenu.js";
 
-intro(chalk.white.bgBlue.bold('🛠️ HELP TOOLS'));
+mainMenu();

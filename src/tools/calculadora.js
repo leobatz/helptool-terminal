@@ -7,8 +7,10 @@ async function calculadora() {
         let primeiroNumero = await perguntar('Digite o primeiro número: ', terminal);
         primeiroNumero = Number(primeiroNumero);
 
-        if (Number.isNaN(primeiroNumero)) {
-
+        if (!Number.isNaN(primeiroNumero)) {
+            break
+        } else {
+            console.log('Digite apenas números!');
         }
     }
 
@@ -22,6 +24,20 @@ async function calculadora() {
         ]
     });
 
-    let segundoNumero = await perguntar('Digite o segundo número: ', terminal);
+    while(true) {
+        let segundoNumero = await perguntar('Digite o segundo número: ', terminal);
+        segundoNumero = Number(segundoNumero);
 
+        if (!Number.isNaN(segundoNumero)) {
+            break
+        } else {
+            console.log('Digite apenas números!');
+        }
+    }
+
+    switch (opcaoOperador) {
+        case 'soma':
+            const calculo = primeiroNumero + segundoNumero;
+            console.log()
+    }
 }

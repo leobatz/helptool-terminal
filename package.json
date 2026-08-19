@@ -10,9 +10,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@clack/prompts": "^1.7.0",
-    "chalk": "^6.0.0"
-  }
+  "type": "module"
 }

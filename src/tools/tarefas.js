@@ -25,7 +25,7 @@ export async function Tarefas() {
         const name = await perguntar('Digite a tarefa: ', terminal);
 
         const task = {
-            id: Date.now(),
+            id: tasks.size + 1,
             name,
             completed: false
         };

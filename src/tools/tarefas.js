@@ -4,7 +4,7 @@ import path from "node:path";
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
 export async function Tarefas() {
-    const filePath = path.join(process.cwd(), "data", "tarefas.json");
+    const filePath = path.join(process.cwd(),"src", "data", "tarefas.json");
 
     if (!existsSync(filePath)) {
         writeFileSync(filePath, JSON.stringify([], null, 2), "utf-8"); 
@@ -17,6 +17,8 @@ export async function Tarefas() {
 
     function salvar(){
         const data = Array.from(tasks.values());
+
+        writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8"); //Sincronizando dados
     }
 
     async function criarTarefa(){
@@ -26,11 +28,48 @@ export async function Tarefas() {
             id: Date.now(),
             name,
             completed: false
-        }
+        };
 
         tasks.set(task.id, task);
 
-        console.log("Tarefa criada!")
+        salvar();
+
+        console.log("Tarefa criada!");
+    }
+
+    function listarTarefas() {
+
+        if (tasks.size === 0) {
+            console.log("Nenhuma tarefa.");
+            return;
+        }
+
+        for (const task of tasks.values()) {
+
+            const status = task.completed ? "[X]" : "[ ]";
+
+            console.log(`${status} ${task.id} - ${task.name}`);
+        }
+    }
+
+    async function concluirTarefa() {
+
+        listarTarefas();
+
+        const id = Number(await perguntar("Digite o ID da tarefa: ", terminal));
+
+        const task = tasks.get(id);
+
+        if (!task) {
+            console.log("Tarefa não encontrada.");
+            return;
+        }
+
+        task.completed = true;
+
+        salvar();
+
+        console.log("Tarefa concluída!");
     }
 
     while (true) {
@@ -52,7 +91,7 @@ export async function Tarefas() {
                 await criarTarefa();
                 break;
             case '2':
-                listarTarefa();
+                listarTarefas();
                 break;
             case '3':
                 await concluirTarefa();
@@ -63,10 +102,5 @@ export async function Tarefas() {
             default:
                 console.log("Opção inválida.");
         }
-    }
-    
-}
-
-export async function criarTarefa() {
-
+    }  
 }

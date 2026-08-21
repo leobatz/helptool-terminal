@@ -1,6 +1,7 @@
 import terminal from '../shortcuts/readlineInterface.js'
 import { perguntar } from '../shortcuts/functionPerguntar.js'
-import { calculadora } from '../tools/calculadora.js'
+import { Calculadora } from '../tools/calculadora.js'
+import { Tarefas } from '../tools/tarefas.js'
 
 export default async function mainMenu() {
     while (true) {
